@@ -74,8 +74,8 @@ void evaluate(){
 }
 
 int main() {
-    //int first=NUMA, second=NAMB ;
-    //printf( "GCD of %d & %d is %d\n", first, second, gcd_asm(first, second) ) ;
+    int first=NUMA, second=NAMB ;
+    printf( "GCD of %d & %d is %d\n", first, second, gcd_asm(first, second) ) ;
 
     evaluate();
 

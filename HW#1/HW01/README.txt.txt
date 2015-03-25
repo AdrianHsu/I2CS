@@ -16,7 +16,7 @@ Code::Blocks
 注意：測試用的照片，放在/img之中
 
 檔案列表（隨著軟件而發佈的檔案）
-main.cpp
+
 BMPImg.h
 BMPImg.cpp
 README.txt
