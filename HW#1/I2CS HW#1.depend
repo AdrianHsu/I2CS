@@ -39,3 +39,16 @@
 	<iostream>
 	"BMPImg.h"
 
+1425638402 source:d:\google ¶³ºÝµwºÐ\ntuee_103_2\i2cs_tianli_yu\hw#1\bmpimg.cpp
+	<cmath>
+	"BMPImg.h"
+
+1425610297 d:\google ¶³ºÝµwºÐ\ntuee_103_2\i2cs_tianli_yu\hw#1\bmpimg.h
+	<iostream>
+	<string>
+	<fstream>
+
+1425635164 source:d:\google ¶³ºÝµwºÐ\ntuee_103_2\i2cs_tianli_yu\hw#1\main.cpp
+	<iostream>
+	"BMPImg.h"
+

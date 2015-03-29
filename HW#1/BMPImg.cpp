@@ -93,7 +93,7 @@ bool BMPImg::sobelEdge()
         	for(int j = 0; j < getWidth(); j++, k += 3)
         	{
         		//bit map is ordered in BGR, rather than RGB
-        		g[i][j] = 0.114 * data[k] + 0.299 * data[k + 1] + 0.587 * data[k + 2];
+        		g[i][j] = 0.114 * data[k] + 0.587 * data[k + 1] + 0.299 * data[k + 2];
         	}
         }
         double gx = 0, gy = 0, edge = 0;
