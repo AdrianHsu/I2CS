@@ -3,9 +3,6 @@
 #include <cstdio>
 #include <string>
 
-#define N 4146153463
-#define e 3
-#define d 2764016427
 #define _8_BIT 256
 
 unsigned long find_m(const int, const int); //function overloading
@@ -14,12 +11,21 @@ unsigned long _pow(const unsigned long, unsigned long);
 
 unsigned long RSA(const unsigned long); 
 
+unsigned long N = 0;
+unsigned long e = 0;
+
 using namespace std;
 int main()
 {
     //printf("%d", sizeof(unsigned long long int));
     ifstream ifs;
+    string _N_e = "public_key.txt";
+    ifs.open(_N_e.c_str(), ios::binary); 
+    ifs >> N >> e;
+
+    ifs.close();
     ofstream ofs;
+
     string input = "plain.txt";
     string output = "secret.txt";
 
