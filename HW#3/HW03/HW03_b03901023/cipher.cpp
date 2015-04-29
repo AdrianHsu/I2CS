@@ -3,18 +3,19 @@
 #include <cstdio>
 #include <string>
 
-#define _8_BIT 256
-
-unsigned long find_m(const int, const int); //function overloading
-unsigned long find_m(const int);
-unsigned long _pow(const unsigned long, unsigned long);
-
-unsigned long RSA(const unsigned long); 
-
-unsigned long N = 0;
-unsigned long e = 0;
-
 using namespace std;
+
+#define _8_BIT 256
+typedef unsigned long long int longint;
+
+longint find_m(const longint, const longint); //function overloading
+longint find_m(const longint);
+longint _pow(longint, longint);
+
+longint RSA(const longint); 
+
+longint N = 0;
+longint e = 0;
 int main()
 {
     //printf("%d", sizeof(unsigned long long int));
@@ -53,26 +54,24 @@ int main()
     ofs.close();
     return 0;
 }
-unsigned long find_m(const int _p, const int q)
+longint find_m(const longint _p, const longint q)
 {
     return _p * _8_BIT + q;
 }
-unsigned long find_m(const int _p)
+longint find_m(const longint _p)
 {
     return _p * _8_BIT;
 }
-unsigned long _pow(const unsigned long m, unsigned long k)
+longint _pow(longint m, longint e)
 {
-    unsigned long total = 1;
-    unsigned long i = 1;
-    while(i <= k)
-    {
-        total *= m;
-        i++;
-    }
-    return total;
+    if(e == 1)
+        return m;
+    if(e % 2 == 0)
+        return ( _pow(m, e / 2) *  _pow(m, e / 2) ) % N;
+    else
+        return _pow(m, (e - 1) / 2) * _pow(m, (e + 1) / 2) % N;
 }
-unsigned long RSA(const unsigned long m)
+longint RSA(const longint m)
 {
     return _pow(m, e) % N;
 }
