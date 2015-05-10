@@ -21,10 +21,10 @@ double **h;  // (n+1)*m 2D-array
 double *real_v;
 double *real_h;
 
-double shortest_path(string &);
+void shortest_path(int, int, double, double &,string, string &);
 void readParameters()
 {
-    ifstream ifs("input3", ifstream::binary);
+    ifstream ifs("input1", ifstream::binary);
 
     ifs.read((char*)&m, sizeof(int));
     ifs.read((char*)&n, sizeof(int));
@@ -65,7 +65,6 @@ int main()
             cout << v[i][j] << " ";
         cout << endl;
     }
-    cout << "AA"<< endl;
     for(int i = 0; i < n + 1; i++)
     {
         for(int j = 0; j < m; j++)
@@ -73,12 +72,47 @@ int main()
         cout << endl;
     }*/
     string movement;
-    cout << shortest_path(movement) << endl;
-    cout << movement << endl;
+    string MAX_MOVEMENT;
+    int x = 0, y = 0;
+    double total = 0;
+    double MAX_TOTAL = 99999;
+    shortest_path(x, y, total, MAX_TOTAL, movement, MAX_MOVEMENT);
+    cout << MAX_TOTAL << endl;
+    cout << MAX_MOVEMENT << endl;
 
     release();
     return 0;
 }
-double shortest_path(string& str)
+void shortest_path(int x, int y, double total, double& MAX_TOTAL , string str, string& MAX_MOVEMENT)
 {
+    if(x == m && y == n)
+    {
+        if(total < MAX_TOTAL)
+        {
+            cout << total << endl;
+            MAX_MOVEMENT = str;
+            MAX_TOTAL = total;
+        }
+        return;
+    }
+    if(x == m)
+    {
+        str += "v";
+        shortest_path(x, y + 1, total + v[ y ][ x ], MAX_TOTAL, str, MAX_MOVEMENT);
+    }
+    else if(y == n)
+    {
+        str += "h";
+        shortest_path(x + 1, y, total + h[ y ][ x ], MAX_TOTAL, str, MAX_MOVEMENT);
+    }
+    else
+    { 
+        str += "v";
+        shortest_path(x, y + 1, total + v[ y ][ x ], MAX_TOTAL, str, MAX_MOVEMENT);
+        str.pop_back();
+
+        str += "h";
+        shortest_path(x + 1, y, total + h[ y ][ x ], MAX_TOTAL, str, MAX_MOVEMENT);
+        str.pop_back();
+    }
 }
