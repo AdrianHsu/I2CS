@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stack>
 #include <ctime>
 
 using namespace std;
@@ -10,7 +11,7 @@ using namespace std;
   variables is a bad habit.
   I use globals here because I don't 
   want to scare you with "double***"
-*************************************/
+ *************************************/
 
 int m;
 int n;
@@ -21,10 +22,11 @@ double **h;  // (n+1)*m 2D-array
 double *real_v;
 double *real_h;
 
-void shortest_path(int, int, double, double &,string, string &);
+double shortest_path(int, int);
+void print(int , int);
 void readParameters()
 {
-    ifstream ifs("input1", ifstream::binary);
+    ifstream ifs("input3", ifstream::binary);
 
     ifs.read((char*)&m, sizeof(int));
     ifs.read((char*)&n, sizeof(int));
@@ -55,64 +57,53 @@ void release()
     delete []real_v;
     delete []real_h;
 }
-
 int main()
 {
     readParameters();
-    /*for(int i = 0; i < n; i++)
-    {
-        for(int j = 0; j < m + 1; j++)
-            cout << v[i][j] << " ";
-        cout << endl;
-    }
-    for(int i = 0; i < n + 1; i++)
-    {
-        for(int j = 0; j < m; j++)
-            cout << h[i][j] << " ";
-        cout << endl;
-    }*/
-    string movement;
-    string MAX_MOVEMENT;
-    int x = 0, y = 0;
-    double total = 0;
-    double MAX_TOTAL = 99999;
-    shortest_path(x, y, total, MAX_TOTAL, movement, MAX_MOVEMENT);
-    cout << MAX_TOTAL << endl;
-    cout << MAX_MOVEMENT << endl;
-
+    cout << shortest_path(n, m) << endl;
+    print(n, m);
     release();
     return 0;
 }
-void shortest_path(int x, int y, double total, double& MAX_TOTAL , string str, string& MAX_MOVEMENT)
-{
-    if(x == m && y == n)
-    {
-        if(total < MAX_TOTAL)
-        {
-            cout << total << endl;
-            MAX_MOVEMENT = str;
-            MAX_TOTAL = total;
-        }
-        return;
-    }
-    if(x == m)
-    {
-        str += "v";
-        shortest_path(x, y + 1, total + v[ y ][ x ], MAX_TOTAL, str, MAX_MOVEMENT);
-    }
-    else if(y == n)
-    {
-        str += "h";
-        shortest_path(x + 1, y, total + h[ y ][ x ], MAX_TOTAL, str, MAX_MOVEMENT);
-    }
-    else
-    { 
-        str += "v";
-        shortest_path(x, y + 1, total + v[ y ][ x ], MAX_TOTAL, str, MAX_MOVEMENT);
-        str.pop_back();
+double distance_visted[ 1000 ][ 1000 ];
+bool visited[ 1000 ][ 1000 ];
+char arr[ 1000 ][ 1000 ];
 
-        str += "h";
-        shortest_path(x + 1, y, total + h[ y ][ x ], MAX_TOTAL, str, MAX_MOVEMENT);
-        str.pop_back();
-    }
+double shortest_path( int n , int m ){
+
+    if( n == 0 && m == 0 ) return 0;
+    if( visited[ n ][ m ] ) return distance_visited[ n ][ m ];
+    double tmph = 10000000;
+    double tmpv = 10000000;
+    if( m > 0 )
+        tmph = h[ n ][ m - 1 ] + shortest_path( n , m - 1 );
+    if( n > 0 )
+        tmpv = v[ n - 1 ][ m ] + shortest_path( n - 1 , m );
+    if(tmph < tmpv)
+        arr[n][m] = 'h';
+    else
+        arr[n][m] = 'v';
+    visited[ n ][ m ] = true;
+    double distance = min(tmph, tmpv);
+    distance_visited[ n ][ m ] = distance;
+    return distance;
 }
+void print(int n, int m)
+{
+    stack <char> str;
+    while(n != 0 || m != 0)
+    {
+        str.push(arr[n][m]);
+        if (str.top() == 'v')
+            n--;
+        else
+            m--;
+    }
+    while(!str.empty())
+    {
+        cout << str.top();
+        str.pop();
+    }
+    cout << endl;
+}
+
