@@ -23,6 +23,7 @@ double **h;  // (n+1)*m 2D-array
 double *real_v;
 double *real_h;
 
+/*FUNCTION PROTOTYPE*/
 class Node
 {
 public:
@@ -32,11 +33,25 @@ public:
     int x;
     int y;
 };
-
-
 double shortest_path(int, int);
 void print(int , int);
 double Dijkstra();
+
+double distance_visited[ 1000 ][ 1000 ];
+bool visited[ 1000 ][ 1000 ];
+char arr[ 1000 ][ 1000 ];
+
+const int dx[4] = {0, 1,0, -1};
+const int dy[4] = {1, 0, -1,0};
+
+bool D_visit[1000][1000]; 
+double d[1000][1000]; // distance 
+bool operator<(const Node& n1, const Node& n2) //priority_queue
+{
+    return d[ n1.y ][ n1.x ] > d[ n2.y ][ n2.x ];
+}
+//////////////////////
+
 void readParameters()
 {
     ifstream ifs("input3", ifstream::binary);
@@ -72,30 +87,12 @@ void release()
 int main()
 {
     readParameters();
-    /*for(int i = 0; i < n; i++)
-    {
-        for(int j = 0; j < m + 1; j++)
-            cout << v[i][j] << " ";
-        cout << endl;
-    }
-    cout << endl;
-    for(int i = 0; i < n + 1; i++)
-    {
-        for(int j = 0; j < m; j++)
-            cout << h[i][j] << " ";
-        cout << endl;
-    }*/
     cout << shortest_path(n, m) << endl;
     print(n, m);
     cout << Dijkstra() << endl;
     release();
     return 0;
 }
-double distance_visited[ 1000 ][ 1000 ];
-bool visited[ 1000 ][ 1000 ];
-char arr[ 1000 ][ 1000 ];
-
-
 double shortest_path( int n , int m ){
 
     if( n == 0 && m == 0 ) return 0;
@@ -133,39 +130,27 @@ void print(int n, int m)
     }
     cout << endl;
 }
-const int dx[4] = {0, 1,0, -1};
-const int dy[4] = {1, 0, -1,0};
-
-//Node parent[1000][1000];
-bool D_visit[1000][1000]; 
-double d[1000][1000];
-bool operator<(const Node& n1, const Node& n2)
-{
-    return d[ n1.y ][ n1.x ] > d[ n2.y ][ n2.x ];
-}
 double Dijkstra()
 {
     for(int i = 0; i <= n; i++)
         for(int j = 0; j <= m; j++)
-            d[ i ][ j ] = 10000000;
+            d[ i ][ j ] = 10000000; // Unknown distance function from source to v
+    
     priority_queue< Node >PQ;
-
-    Node p(0, 0);
-    d[p.y][p.x] = 0;
-    //parent[p.y][p.x] = p;
+    Node p(0, 0); // Previous node in optimal path initialization is not defined
+    d[p.y][p.x] = 0; // Distance from source to source is zero
     PQ.push(p);
+    
     while(true)
     {
-        Node a(-1, -1);
+        Node a(-1, -1); 
         while (!PQ.empty())
         {
             Node _top = PQ.top();
             PQ.pop();
             a = _top;
-            if(!D_visit[_top.y][_top.x])
-            {
+            if(!D_visit[_top.y][_top.x]) 
                 break;
-            }
         }
         if (a.x == -1 || a.y == -1) break;
         D_visit[a.y][a.x] = true;
@@ -174,7 +159,8 @@ double Dijkstra()
         {
             int newx = a.x + dx[i];
             int newy = a.y + dy[i];
-            if (newx < 0 || newx > m || newy < 0 || newy > n) continue;
+            if (newx < 0 || newx > m || newy < 0 || newy > n)
+                continue;
             double tmp = 0;
             switch(i)
             {   
@@ -193,10 +179,9 @@ double Dijkstra()
             }
             if(!D_visit[newy][newx])
             {
-                if(d[a.y][a.x] + tmp < d[newy][newx])
+                if(d[a.y][a.x] + tmp < d[newy][newx]) // A shorter path to v has been found
                 {
                     d[newy][newx] = d[a.y][a.x] + tmp;
-                    //parent[newy][newx] = a;
                     PQ.push(Node(newx, newy));
                 }
             }
