@@ -1,8 +1,10 @@
 CPPFLAGS = -O2 -std=c++11 -Wall
 
-all: hw5 run
-
-hw5: main.cpp myvector.cpp myvector.h
-	g++ $(CPPFLAGS) main.cpp myvector.cpp -o $@
+hw5:
+	g++ $(CPPFLAGS) main.cpp -o $@
+bonus:
+	g++ $(CPPFLAGS) tmain.cpp -o $@
 run:
 	./hw5
+run_bonus:
+	./run_bonus
