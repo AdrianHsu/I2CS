@@ -18,26 +18,30 @@ class TVector
         double get(const int) const;
         TVector operator+(const TVector&) const;
         double operator*(const TVector& ) const;
-        Tvector& resize(const int);
+        TVector& resize(const int);
 
         template <int J>
-        friend ostream& operator<<(ostream&, const TVector<J> &);
+            friend ostream& operator<<(ostream&, const TVector<J> &);
 
     private:
         MyVector a;
 };
 
-template<int T>
+    template<int T>
 TVector<T>::TVector()
 {   
     a = MyVector(T); 
 }
 
-template<int T>
+    template<int T>
 TVector<T>::TVector(const TVector<T>& p)
     : a(p.a){}
 
-template<int T>
+    template<int T>
+TVector<T>::~TVector()
+{}
+
+    template<int T>
 const TVector<T>& TVector<T>::operator=(const TVector<T> p)
 {   
     a = p.a;
@@ -56,7 +60,7 @@ double TVector<T>::get(const int pos) const
     return a.get(pos);
 }
 
-template<int T>
+    template<int T>
 TVector<T>& TVector<T>::set(const int pos, const double value)
 {   
     a.set(pos, value);
@@ -64,7 +68,7 @@ TVector<T>& TVector<T>::set(const int pos, const double value)
 }
 
 template<int T>
-TVector<T> TVector<T>::operator+(const TVector<T> p) const
+TVector<T> TVector<T>::operator+(const TVector<T>& p) const
 {   
     TVector<T> ans;
     ans.a = a + p.a;
@@ -72,21 +76,17 @@ TVector<T> TVector<T>::operator+(const TVector<T> p) const
 }
 
 template<int T>
-double TVector<T>::operator*(const TVector<T> p) const
+double TVector<T>::operator*(const TVector<T>& p) const
 {   
     return a * p.a;
 }
 
 template<int T>
-Tvector& TVector<T>::resize(const int p)
+TVector<T>& TVector<T>::resize(const int p)
 {   
     std::cout << "Resize not allowed" << std::endl;
     return *this;
 }
-
-template<int T>
-TVector<T>::~TVector()
-{}
 
 template<int T>
 ostream& operator<<(ostream& output, const TVector<T>& p)
