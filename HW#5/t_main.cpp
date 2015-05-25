@@ -13,7 +13,8 @@ int main()
     a = b+c;
     cout << a << endl;
     a.set(0, 0.0).set(1, 0.1).set(2, 0.2);
-
+    
+    a.resize(4);
     cout << a << endl;
     cout << a.get(1) << endl;
     cout << a.getLength() << endl;
