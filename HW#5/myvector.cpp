@@ -1,5 +1,4 @@
 #include "myvector.h"
-#include "tvector.h"
 
 //(1) Default constructor
 MyVector::MyVector()
@@ -34,12 +33,12 @@ int MyVector::getLength() const
     return length;
 }
 //(7) Getter and setter for data[]
-MyVector& MyVector::set(int i, double input)
+MyVector& MyVector::set(const int i,const double input)
 {
     data[i] = input;
     return *this;
 }
-double MyVector::get(int i) const
+double MyVector::get(const int i) const
 {
     return data[i];
 }
@@ -51,7 +50,7 @@ MyVector MyVector::operator+(const MyVector& target) const
         out.data[i] = data[i] + target.get(i);
     return out;
 }
-double MyVector::operator*(const MyVector& target)
+double MyVector::operator*(const MyVector& target) const
 {
     double result = 0.0;
     for(int i = 0; i < length; i++)
@@ -59,7 +58,7 @@ double MyVector::operator*(const MyVector& target)
     return result;
 }
 //(10) resize() (content in data[] can be destroyed)
-MyVector& MyVector::resize(int size)
+MyVector& MyVector::resize(const int size)
 {
     double *tmp = new double [size];
     if(size <= length)

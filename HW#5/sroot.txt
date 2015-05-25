@@ -1,6 +1,6 @@
-sroot(X,N,A):-
-N=1 -> A is 1;
-N>1,
-N1 is N-1,
-sroot(X,N1,A1),
-A is A1/2+X/(2*A1).
+sroot(X,N,T):-
+N = 1 -> T is 1;
+N > 1,
+N1 is N - 1,
+sroot(X,N1,T1),
+T is T1/2 + X/(2*T1).

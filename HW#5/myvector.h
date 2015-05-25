@@ -22,13 +22,13 @@ class MyVector {
         //(6) Getter for length
         int getLength() const;
         //(7) Getter and setter for data[]
-        MyVector& set(int , double);
-        double get(int) const;
+        MyVector& set(const int ,const double);
+        double get(const int) const;
         //(9) Operator+ and operator* (inner product)
         MyVector operator+(const MyVector& ) const;
-        double operator*(const MyVector& );
+        double operator*(const MyVector& ) const;
         //(10) resize() (content in data[] can be destroyed)
-        MyVector& resize(int);
+        MyVector& resize(const int);
 
         //(8) Ostream (for cout)
         friend ostream& operator<<(ostream&, const MyVector &);

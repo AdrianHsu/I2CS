@@ -1,6 +1,6 @@
 #include <iostream>
-#include "tvector.h"
-#include "tvector.h"	// test for duplicated inclusion
+#include "myvector.h"
+#include "tvector.cpp"	// test for duplicated inclusion
 
 using namespace std;
 
