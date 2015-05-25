@@ -1,7 +1,0 @@
-gcd(X,Y,G):-
-X is 0 -> G is Y;
-X is 0 -> G is X;
-X > 0,
-Y > 0,
-X >= Y -> X1 is X - Y, Y1 is Y, gcd(X1,Y1,G1), G is G1;
-X <  Y -> X1 is Y - X, Y1 is X, gcd(X1,Y1,G1), G is G1.
