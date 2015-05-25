@@ -16,83 +16,83 @@ class TVector
         int getLength() const;
         TVector& set(const int, const double);
         double get(const int) const;
-        TVector operator+(const TVector&) const;
+        TVector operator+(const TVector& ) const;
         double operator*(const TVector& ) const;
         TVector& resize(const int);
 
-        template <int J>
-            friend ostream& operator<<(ostream&, const TVector<J> &);
+        template <int U>
+        friend ostream& operator<<(ostream&, const TVector<U> &);
 
     private:
-        MyVector a;
+        MyVector vec;
 };
 
-    template<int T>
+template<int T>
 TVector<T>::TVector()
 {   
-    a = MyVector(T); 
+    vec = MyVector(T); 
 }
 
-    template<int T>
-TVector<T>::TVector(const TVector<T>& p)
-    : a(p.a){}
+template<int T>
+TVector<T>::TVector(const TVector<T>& in)
+    : vec(in.vec){}
 
-    template<int T>
+template<int T>
 TVector<T>::~TVector()
 {}
 
-    template<int T>
-const TVector<T>& TVector<T>::operator=(const TVector<T> p)
+template<int T>
+const TVector<T>& TVector<T>::operator=(const TVector<T> in)
 {   
-    a = p.a;
+    vec = in.vec;
     return (*this);
 }
 
 template<int T>
 int TVector<T>::getLength() const
 {   
-    return a.getLength();
+    return vec.getLength();
 }
 
 template<int T>
-double TVector<T>::get(const int pos) const
+double TVector<T>::get(const int i) const
 {   
-    return a.get(pos);
+    return vec.get(i);
 }
 
-    template<int T>
-TVector<T>& TVector<T>::set(const int pos, const double value)
+template<int T>
+TVector<T>& TVector<T>::set(const int i, const double value)
 {   
-    a.set(pos, value);
+    vec.set(i, value);
     return (*this);
 }
 
 template<int T>
-TVector<T> TVector<T>::operator+(const TVector<T>& p) const
+TVector<T> TVector<T>::operator+(const TVector<T>& in) const
 {   
-    TVector<T> ans;
-    ans.a = a + p.a;
-    return ans;
+    TVector<T> tmp;
+    tmp.vec = vec + in.vec;
+    return tmp;
 }
 
 template<int T>
-double TVector<T>::operator*(const TVector<T>& p) const
+double TVector<T>::operator*(const TVector<T>& in) const
 {   
-    return a * p.a;
+    return vec * in.vec;
 }
 
 template<int T>
-TVector<T>& TVector<T>::resize(const int p)
+TVector<T>& TVector<T>::resize(const int i)
 {   
-    std::cout << "Resize not allowed" << std::endl;
+    cout << "ERROR: resize() for TVector is not defined." << endl;
     return *this;
 }
 
 template<int T>
-ostream& operator<<(ostream& output, const TVector<T>& p)
+ostream& operator<<(ostream& out, const TVector<T>& in)
 {   
-    output << p.a;
-    return output;
+    out << in.vec;
+    return out;
 }
 
 #endif
