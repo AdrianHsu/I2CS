@@ -1,97 +1,86 @@
-#include "myvector.h"
-#include "tvector.h"
+#ifndef _TVECTOR_
+#define _TVECTOR_
 
-//(1) Default constructor
-MyVector::MyVector()
-    :length(0), data(NULL){};
-//(2) Copy constructor
-    MyVector::MyVector(const MyVector& target)
-:length(0), data(NULL)
+#include "myvector.h"
+#include <iostream>
+
+template <int T>
+class TVector
 {
-    resize(target.getLength());
-    for(int i = 0; i < length; i++)
-        data[i] = target.get(i);
+public:
+  template <int J> friend std::ostream& operator<<(std::ostream&, const TVector<J>&);
+  TVector();
+  TVector(const TVector&);
+  TVector& operator=(const TVector);
+  int getLength() const;
+  double get(const int) const;
+  TVector& set(const int, const double);
+  TVector operator+(const TVector) const;
+  double operator*(const TVector) const;
+  void resize(const int);
+  ~TVector();
+private:
+  MyVector a;
+};
+
+template<int T>
+TVector<T>::TVector()
+{   a = MyVector(T);
 }
-//(3) Constructor that take one integer argument.
-MyVector::MyVector(int _length)
-    :length(_length), data( new double [_length] ){};
-//(4) Destructor
-MyVector::~MyVector()
+
+template<int T>
+TVector<T>::TVector(const TVector<T>& p): a(p.a)
 {
-    delete [] data;
 }
-//(5) Copier
-const MyVector& MyVector::operator=(const MyVector& target)
+
+template<int T>
+TVector<T>& TVector<T>::operator=(const TVector<T> p)
+{   a = p.a;
+    return (*this);
+}
+
+template<int T>
+int TVector<T>::getLength() const
+{   return a.getLength();
+}
+
+template<int T>
+double TVector<T>::get(const int pos) const
+{   return a.get(pos);
+}
+
+template<int T>
+TVector<T>& TVector<T>::set(const int pos, const double value)
+{   a.set(pos, value);
+    return (*this);
+}
+
+template<int T>
+TVector<T> TVector<T>::operator+(const TVector<T> p) const
+{   TVector<T> ans;
+    ans.a = a + p.a;
+    return ans;
+}
+
+template<int T>
+double TVector<T>::operator*(const TVector<T> p) const
+{   return a * p.a;
+}
+
+template<int T>
+void TVector<T>::resize(const int p)
+{   std::cout << "Resize not allowed" << std::endl;
+}
+
+template<int T>
+TVector<T>::~TVector()
 {
-    resize(target.getLength());
-    for(int i = 0; i < length; i++)
-        data[i] = target.get(i);
-    return *this;
 }
-//(6) Getter for length
-int MyVector::getLength() const
-{
-    return length;
+
+template<int T>
+std::ostream& operator<<(std::ostream& output, const TVector<T>& p)
+{   output << p.a;
+    return output;
 }
-//(7) Getter and setter for data[]
-MyVector& MyVector::set(int i, double input)
-{
-    data[i] = input;
-    return *this;
-}
-double MyVector::get(int i) const
-{
-    return data[i];
-}
-//(9) Operator+ and operator* (inner product)
-MyVector MyVector::operator+(const MyVector& target) const
-{
-    MyVector out(length);
-    for(int i = 0; i < length; i++)
-        out.data[i] = data[i] + target.get(i);
-    return out;
-}
-double MyVector::operator*(const MyVector& target)
-{
-    double result = 0.0;
-    for(int i = 0; i < length; i++)
-        result += data[i] * target.get(i);
-    return result;
-}
-//(10) resize() (content in data[] can be destroyed)
-MyVector& MyVector::resize(int size)
-{
-    double *tmp = new double [size];
-    if(size <= length)
-    {
-        for(int i = 0; i < size; i++)
-        {
-            tmp[i] = data[i];
-        }
-    }
-    else
-    {
-        for(int i = 0; i < length; i++)
-            tmp[i] = data[i];
-        for(int i = length; i < size; i++)
-            tmp[i] = 0;
-    }
-    if(data != NULL)
-        delete [] data;
-    length = size;
-    data = tmp;
-    return *this;
-}
-//(8) Ostream (for cout)
-ostream& operator<<(ostream& out, const MyVector & target)
-{
-    out << "(";
-    for(int i = 0; i < target.getLength(); i++)
-    {
-        out << target.data[i];
-        if(i < target.getLength() - 1)
-            out << ",";
-    }
-    out << ")";
-    return out;
-}
+
+#endif

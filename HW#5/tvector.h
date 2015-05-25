@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-#ifndef _MY_VECTOR_H
-#define _MY_VECTOR_H
+#ifndef _T_VECTOR_H
+#define _T_VECTOR_H
 
 
 class MyVector {
@@ -36,5 +36,12 @@ class MyVector {
     private:
         int length;
         double *data;
+};
+
+template <int N>
+class TVector : MyVector {
+
+    static const int N;
+
 };
 #endif
