@@ -4,7 +4,7 @@
 MyVector::MyVector()
     :length(0), data(NULL){};
 //(2) Copy constructor
-    MyVector::MyVector(const MyVector& target)
+MyVector::MyVector(const MyVector& target)
 :length(0), data(NULL)
 {
     resize(target.getLength());

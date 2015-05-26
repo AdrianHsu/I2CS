@@ -6,7 +6,6 @@ using namespace std;
 
 int main()
 {
-
 	MyVector a;		// test for default constructor
 
 	a.resize(3);

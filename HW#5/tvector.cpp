@@ -12,7 +12,8 @@ TVector<T>::TVector(const TVector<T>& in)
 
 template<int T>
 TVector<T>::~TVector()
-{}
+{
+}
 
 template<int T>
 const TVector<T>& TVector<T>::operator=(const TVector<T> in)
