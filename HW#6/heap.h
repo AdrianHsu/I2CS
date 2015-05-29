@@ -17,9 +17,9 @@ public:
 		}
 		else
 		{
-			int i = size - 1;
+			int i = size;
 			ary[ i ] = input;
-			while(ary[ i ].key < ary[ (i - 1) / 2 ].key && i >= 0)
+			while(ary[ i ].key < ary[ (i - 1) / 2 ].key && (i - 1) / 2 >= 0)
 			{
 				swap(i, (i - 1) / 2);
 				i = (i - 1) / 2;
@@ -48,11 +48,11 @@ public:
     	size--;
     	while( (ary[ i ].key > ary[2 * i + 1].key || ary[ i ].key > ary[2 * i + 2].key) && (2 * i) + 1 <= size - 1)
     	{
-    		if(2 * i + 2 >= size - 1)
+    		if(2 * i + 2 > size - 1)
     		{
     			swap(i, 2 * i + 1);
     			i = 2 * i + 1;
-    			continue;
+    			continue; //reach end
     		}
     		if(ary[ 2 * i + 1 ].key <= ary[ 2 * i + 2].key) //assume '<=' is acceptable
     		{

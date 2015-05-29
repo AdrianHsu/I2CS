@@ -11,7 +11,7 @@ int main()
 
     Heap heap;
 
-    ifstream file("input2.txt");
+    ifstream file("input3.txt");
 
     int opNum;
     int heapNum;

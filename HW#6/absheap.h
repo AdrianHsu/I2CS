@@ -35,7 +35,7 @@ public:
     void printArray() const {
         cout << "(Index, Key, Element)" << endl;
         for (int i=0; i<size; i++)
-            cout << "(" << i << "," << ary[i].key << "," << ary[i].element << ")" << endl;
+            cout << "(" << i << "," << ary[i].key << "," << ary[i].element << ")" << endl;        
     }
 
     void printByPopping() {
@@ -49,13 +49,14 @@ public:
     }
 
     void swap(int i, int j) {
-            /*if (i>=size || j>=size)
-                cout << "swap: " << i << "," << j << "," << size << endl;
-                */
-                Node temp = ary[i];
-                ary[i] = ary[j];
-                ary[j] = temp;
-            }
+            
+        /*if (i>=size || j>=size)
+            cout << "swap: " << i << "," << j << "," << size << endl;
+        */
+        Node temp = ary[i];
+        ary[i] = ary[j];
+        ary[j] = temp;
+    }
 
     Node *ary;
     int size;
