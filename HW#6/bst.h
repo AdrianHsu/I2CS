@@ -76,17 +76,17 @@ class BST {
             {
                 if(val == target->data)
                     break;
-                else if(val < target->data)
+
+                parent = target;
+                if(val < target->data)
                 {
-                    if(target->left == NULL) return; //ERROR: target not found
-                    parent = target;
+                    if(target->left == NULL) return; //ERROR: target not found                    
                     target = target->left;
                     left_child = 1;
                 }
                 else
                 {
                     if(target->right == NULL) return; //ERROR: target not found
-                    parent = target;
                     target = target->right;
                     left_child = 0;
                 }
@@ -122,6 +122,7 @@ class BST {
                 int _data = target->data;
                 target->data = tmp->data;
                 tmp->data = _data;
+                
                 if(target->right == NULL)
                 {
                     if(left_child) parent->left = NULL;

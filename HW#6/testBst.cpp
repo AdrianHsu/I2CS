@@ -55,9 +55,9 @@ int main()
 	bst.postorder();
 	bst._delete(25);
 	bst.postorder();
-	bst._delete(40);
+	bst._delete(8);
 	bst.postorder();
-	bst._delete(6);
+	bst._delete(35);
 	bst.postorder();
 	bst._delete(15);
 	bst.postorder();
@@ -67,9 +67,9 @@ int main()
 	bst.postorder();
 	bst._delete(2);
 	bst.postorder();
-	bst._delete(8);
+	bst._delete(40);
 	bst.postorder();
-	bst._delete(35);
+	bst._delete(6);
 	bst.postorder();
 	bst._delete(18);
 	bst.postorder();
