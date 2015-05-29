@@ -29,41 +29,63 @@ public:
 	}
 
     // return the element with the minimum key, remember to --size
-    virtual char pop()
-    {
-    	if( isEmpty() )
-    	{
-    		cout << "ERROR: heap is empty." << endl;
-    		return '0';
-    	}
+	virtual char pop()
+	{
+		if( isEmpty() )
+		{
+			cout << "ERROR: heap is empty." << endl;
+			return '0';
+		}
 
 		int i = 0;
 		char result = ary[i].element;
-    	ary[ i ] = ary[ size - 1 ];
+		ary[ i ] = ary[ size - 1 ];
 
-    	Node empty;
-    	empty.key = 0;
-    	empty.element = '0';
-    	ary[ size - 1 ] = empty;
-    	size--;
-    	while( (ary[ i ].key > ary[2 * i + 1].key || ary[ i ].key > ary[2 * i + 2].key) && (2 * i) + 1 <= size - 1)
-    	{
-    		if(2 * i + 2 > size - 1)
-    		{
-    			swap(i, 2 * i + 1);
-    			i = 2 * i + 1;
-    			continue; //reach end
-    		}
-    		if(ary[ 2 * i + 1 ].key <= ary[ 2 * i + 2].key) //assume '<=' is acceptable
-    		{
-    			swap(i, 2 * i + 1);
-    			i = 2 * i + 1;
-    		}
-    		else if(ary[2 * i + 1].key > ary[ 2 * i + 2 ].key)
-    		{	
-    			swap(i, 2 * i + 2);
-    			i = 2 * i + 2;
-    		}
+		Node empty;
+		empty.key = -1;
+		empty.element = '0';
+		ary[ size - 1 ] = empty;
+		size--;
+		while(true)
+		{
+			if(2 * i + 1 > size - 1)
+				break;
+			if(2 * i + 1 == size - 1)
+			{
+				if(ary[ i ].key > ary[2 * i + 1].key)
+					swap(i, 2 * i + 1);
+				i = 2 * i + 1;
+				break;
+			}
+			if(ary[ i ].key <= ary[2 * i + 1].key && ary[ i ].key <= ary[2 * i + 2].key)
+				break;
+			if(ary[ i ].key > ary[2 * i + 1].key && ary[ i ].key > ary[2 * i + 2].key)
+			{
+    			if(ary[ 2 * i + 1 ].key <= ary[ 2 * i + 2].key) //assume '<=' is acceptable
+    			{
+    				swap(i, 2 * i + 1);
+    				i = 2 * i + 1;
+    			}
+    			else if(ary[2 * i + 1].key > ary[ 2 * i + 2 ].key)
+    			{	
+    				swap(i, 2 * i + 2);
+    				i = 2 * i + 2;
+    			}
+			}
+			else
+			{
+				if(ary[ i ].key > ary[2 * i + 1].key)
+				{
+					swap(i, 2 * i + 1);
+					i = 2 * i + 1;
+				}
+				else
+				{
+					swap(i, 2 * i + 2);
+					i = 2 * i + 2;
+				}
+
+			}
     	}
     	return result;
     }
