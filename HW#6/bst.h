@@ -66,9 +66,11 @@ class BST {
                 }
                 if(_root)return;
             }
+
             Node* target = root;
             Node* parent = root;
             bool left_child; // no need to init; if the target is parent's left child(true)
+            
             //while loop binary search
             while(true)
             {
@@ -93,22 +95,16 @@ class BST {
             {
                 if(left_child) parent->left = NULL;
                 else parent->right = NULL;
-                delete target;
-                return;
             }
             if(target->right == NULL)
             {
                 if(left_child)parent->left = target->left;
                 else parent->right = target->left;
-                delete target;
-                return;
             }
             else if(target->left == NULL)
             {
                 if(left_child)parent->left = target->right;
                 else parent->right = target->right;
-                delete target;
-                return;
             }
             else // The minimum node of the right subtree (keep going left).
             {
@@ -130,17 +126,15 @@ class BST {
                 {
                     if(left_child) parent->left = NULL;
                     else parent->right = NULL;
-                    delete target;
-                    return;
                 }
                 else
                 {
                     if(left_child)parent->left = target->right;
                     else parent->right = target->right;
-                    delete target;
-                    return;
                 }
             }
+            delete target;
+            return;
         }
     protected:
         
