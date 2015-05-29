@@ -48,29 +48,25 @@ class BST {
 
         /*BONUS: DELETE FUNCION*/
         void _delete(int val) {
-            
+        
             if(val == root->data)
             {
-                bool _root = false;
                 if(root->right == NULL){
                     root = root->left;
-                    _root = true;
+                    return;
                 }
-                else if(root->left == NULL){
+                else if(root->left == NULL){ //for 1-degree nodes
                     root = root->right;
-                    _root = true;
+                    return;
                 }
                 else if(root->right == NULL && root->left == NULL){
                     delete root;
-                    _root = true;
+                    return;
                 }
-                if(_root)return;
             }
-
             Node* target = root;
             Node* parent = root;
             bool left_child; // no need to init; if the target is parent's left child(true)
-            
             //while loop binary search
             while(true)
             {
@@ -82,13 +78,13 @@ class BST {
                 {
                     if(target->left == NULL) return; //ERROR: target not found                    
                     target = target->left;
-                    left_child = 1;
+                    left_child = true;
                 }
                 else
                 {
                     if(target->right == NULL) return; //ERROR: target not found
                     target = target->right;
-                    left_child = 0;
+                    left_child = false;
                 }
             }
             if(target->left == NULL && target->right == NULL) //delete leaf node
@@ -96,42 +92,37 @@ class BST {
                 if(left_child) parent->left = NULL;
                 else parent->right = NULL;
             }
+
             if(target->right == NULL)
             {
                 if(left_child)parent->left = target->left;
                 else parent->right = target->left;
             }
-            else if(target->left == NULL)
+            else if(target->left == NULL) //for 1-degree nodes
             {
                 if(left_child)parent->left = target->right;
                 else parent->right = target->right;
             }
-            else // The minimum node of the right subtree (keep going left).
-            {
-                parent = target;
-                Node *tmp = target;
-                target = target->right;
-                left_child = 0;
-                while(target->left != NULL)
-                {
-                    parent = target;
-                    target = target->left;
-                    left_child = 1;
-                }
-                //swap
-                int _data = target->data;
-                target->data = tmp->data;
-                tmp->data = _data;
+            else// The minimum node of the right subtree (keep going left).
+            {   // (replacing with its successor for 2-degree nodes)
+                Node* _root = target;
                 
-                if(target->right == NULL)
-                {
-                    if(left_child) parent->left = NULL;
-                    else parent->right = NULL;
+                parent = target;
+                target = target->right;
+                if(target->left == NULL)
+                { 
+                    swap(_root->data, target->data);
+                    parent->right = (target->right == NULL) ? NULL : target->right;
                 }
                 else
                 {
-                    if(left_child)parent->left = target->right;
-                    else parent->right = target->right;
+                    while(target->left != NULL)
+                    {
+                        parent = target;
+                        target = target->left;
+                    }
+                    swap(_root->data, target->data);
+                    parent->left = (target->right == NULL) ? NULL : target->right; 
                 }
             }
             delete target;
