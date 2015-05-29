@@ -51,16 +51,16 @@ class BST {
         
             if(val == root->data)
             {
+                if(root->right == NULL && root->left == NULL){
+                    delete root;
+                    return;
+                }
                 if(root->right == NULL){
                     root = root->left;
                     return;
                 }
                 else if(root->left == NULL){ //for 1-degree nodes
                     root = root->right;
-                    return;
-                }
-                else if(root->right == NULL && root->left == NULL){
-                    delete root;
                     return;
                 }
             }
