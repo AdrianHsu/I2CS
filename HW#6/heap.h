@@ -57,11 +57,12 @@ public:
 				i = 2 * i + 1;
 				break;
 			}
+			//in case '==' happens
 			if(ary[ i ].key <= ary[2 * i + 1].key && ary[ i ].key <= ary[2 * i + 2].key)
 				break;
 			if(ary[ i ].key > ary[2 * i + 1].key && ary[ i ].key > ary[2 * i + 2].key)
 			{
-    			if(ary[ 2 * i + 1 ].key <= ary[ 2 * i + 2].key) //assume '<=' is acceptable
+    			if(ary[ 2 * i + 1 ].key <= ary[ 2 * i + 2].key)
     			{
     				swap(i, 2 * i + 1);
     				i = 2 * i + 1;
