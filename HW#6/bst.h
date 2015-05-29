@@ -49,9 +49,26 @@ class BST {
         /*BONUS: DELETE FUNCION*/
         void _delete(int val) {
             
+            if(val == root->data)
+            {
+                bool _root = false;
+                if(root->right == NULL){
+                    root = root->left;
+                    _root = true;
+                }
+                else if(root->left == NULL){
+                    root = root->right;
+                    _root = true;
+                }
+                else if(root->right == NULL && root->left == NULL){
+                    delete root;
+                    _root = true;
+                }
+                if(_root)return;
+            }
             Node* target = root;
-            Node* parent;
-            bool left_child;
+            Node* parent = root;
+            bool left_child; // no need to init; if the target is parent's left child(true)
             //while loop binary search
             while(true)
             {
@@ -66,7 +83,7 @@ class BST {
                 }
                 else
                 {
-                    if(target->right == NULL) return;
+                    if(target->right == NULL) return; //ERROR: target not found
                     parent = target;
                     target = target->right;
                     left_child = 0;
@@ -88,20 +105,22 @@ class BST {
             }
             else if(target->left == NULL)
             {
-                if(left_child)parent->right = target->right;
+                if(left_child)parent->left = target->right;
                 else parent->right = target->right;
                 delete target;
                 return;
             }
-            else
+            else // The minimum node of the right subtree (keep going left).
             {
                 parent = target;
                 Node *tmp = target;
                 target = target->right;
+                left_child = 0;
                 while(target->left != NULL)
                 {
                     parent = target;
                     target = target->left;
+                    left_child = 1;
                 }
                 //swap
                 int _data = target->data;
@@ -109,13 +128,15 @@ class BST {
                 tmp->data = _data;
                 if(target->right == NULL)
                 {
-                    parent->left = NULL;
+                    if(left_child) parent->left = NULL;
+                    else parent->right = NULL;
                     delete target;
                     return;
                 }
                 else
                 {
-                    parent->left = target->right;
+                    if(left_child)parent->left = target->right;
+                    else parent->right = target->right;
                     delete target;
                     return;
                 }
