@@ -81,13 +81,15 @@ class BST {
             }
             if(target->right == NULL)
             {
-                parent->left = target->left;
+                if(left_child)parent->left = target->left;
+                else parent->right = target->left;
                 delete target;
                 return;
             }
             else if(target->left == NULL)
             {
-                parent->right = target->right;
+                if(left_child)parent->right = target->right;
+                else parent->right = target->right;
                 delete target;
                 return;
             }
@@ -102,9 +104,9 @@ class BST {
                     target = target->left;
                 }
                 //swap
-                Node *swap = target;
-                target = tmp;
-                tmp = swap;
+                int _data = target->data;
+                target->data = tmp->data;
+                tmp->data = _data;
                 if(target->right == NULL)
                 {
                     parent->left = NULL;
