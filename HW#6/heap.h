@@ -12,9 +12,7 @@ public:
 		input.key = _key;
 		input.element = _element;
 		if( isEmpty() )
-		{
 			ary[ 0 ] = input;
-		}
 		else
 		{
 			int i = size;
@@ -36,7 +34,6 @@ public:
 			cout << "ERROR: heap is empty." << endl;
 			return '0';
 		}
-
 		int i = 0;
 		char result = ary[i].element;
 		ary[ i ] = ary[ size - 1 ];
@@ -62,7 +59,7 @@ public:
 				break;
 			if(ary[ i ].key > ary[2 * i + 1].key && ary[ i ].key > ary[2 * i + 2].key)
 			{
-    			if(ary[ 2 * i + 1 ].key <= ary[ 2 * i + 2].key)
+    			if(ary[ 2 * i + 1 ].key <= ary[ 2 * i + 2 ].key)
     			{
     				swap(i, 2 * i + 1);
     				i = 2 * i + 1;
