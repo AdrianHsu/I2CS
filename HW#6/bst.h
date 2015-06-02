@@ -47,7 +47,7 @@ class BST {
         }
 
         /*BONUS: DELETE FUNCION*/
-        void _delete(int val) {
+        void erase(int val) {
         
             if(val == root->data)
             {

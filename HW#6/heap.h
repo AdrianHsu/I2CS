@@ -3,7 +3,7 @@
 
 #include "absheap.h"
 
-class Heap: public AbsHeap {
+class MinHeap: public AbsHeap {
 
 public:
 	virtual void push(int _key, char _element)
@@ -89,3 +89,5 @@ public:
     }
 };
 #endif
+
+typedef MinHeap Heap;
